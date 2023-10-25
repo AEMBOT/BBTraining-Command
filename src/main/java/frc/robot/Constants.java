@@ -21,4 +21,5 @@ public final class Constants {
 
     // Control
     public static final int xBoxControllerPort = 0; // PLACEHOLDER VALUE
+    public static final double turnSensitivity = 1; // The sensitivity of the turn control (right joystick x)
 }

@@ -23,7 +23,7 @@ public class RobotContainer {
     drive.setDefaultCommand(
       new RunCommand(
         () -> {
-          drive.arcadeDrive(m_controller.getLeftY(), m_controller.getRightX());
+          drive.arcadeDrive(m_controller.getLeftY(), m_controller.getRightX() / turnSensitivity);
         },
         drive)
     );
