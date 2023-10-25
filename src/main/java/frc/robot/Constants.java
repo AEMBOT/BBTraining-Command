@@ -19,5 +19,6 @@ public final class Constants {
 
     public static final double encoderDistancePerPulse = 1; // PLACEHOLDER VALUE
 
+    // Control
     public static final int xBoxControllerPort = 0; // PLACEHOLDER VALUE
 }
