@@ -10,31 +10,31 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
     private final MotorControllerGroup m_lMotors = new MotorControllerGroup(
-        new VictorSP(constants.lbMotor),
-        new VictorSP(constants.lfMotor));
+        new VictorSP(Constants.lbMotor),
+        new VictorSP(Constants.lfMotor));
 
     private final MotorControllerGroup m_rMotors = new MotorControllerGroup(
-        new VictorSP(constants.rbMotor),
-        new VictorSP(constants.rfMotor));
+        new VictorSP(Constants.rbMotor),
+        new VictorSP(Constants.rfMotor));
 
     private final DifferentialDrive m_dDrive = new DifferentialDrive(m_lMotors, m_rMotors);
 
     private final Encoder m_lEncoder = 
         new Encoder(
-            constants.lEncoder1,
-            constants.lEncoder2,
-            constants.lEncoderReverse
+            Constants.lEncoder1,
+            Constants.lEncoder2,
+            Constants.lEncoderReverse
         );
 
     private final Encoder m_rEncoder = 
         new Encoder(
-            constants.rEncoder1,
-            constants.rEncoder2,
-            constants.rEncoderReverse
+            Constants.rEncoder1,
+            Constants.rEncoder2,
+            Constants.rEncoderReverse
         );
 
         private final AHRS m_gyro = new AHRS();
@@ -58,8 +58,8 @@ public class DriveSubsystem extends SubsystemBase {
         public DriveSubsystem() {
             m_rMotors.setInverted(true);
 
-            m_lEncoder.setDistancePerPulse(constants.encoderDistancePerPulse);
-            m_rEncoder.setDistancePerPulse(constants.encoderDistancePerPulse);
+            m_lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
+            m_rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
 
             resetEncoders();
 

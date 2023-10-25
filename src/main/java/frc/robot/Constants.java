@@ -1,6 +1,6 @@
 package frc.robot;
 
-public final class constants {
+public final class Constants {
     // Motors
     public static final int lbMotor = 1; // Left Back | PLACEHOLDER VALUE
     public static final int lfMotor = 2; // Left Front | PLACEHOLDER VALUE
