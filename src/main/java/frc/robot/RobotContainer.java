@@ -11,11 +11,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveSubsystem;
 import static frc.robot.Constants.*;
 
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathPlannerTrajectory;
+
 
 public class RobotContainer {
   private DriveSubsystem drive = new DriveSubsystem();
 
   private final CommandXboxController m_controller = new CommandXboxController(xBoxControllerPort);
+
+  private final PathPlannerPath pathTrajectory = PathPlannerPath.fromPathFile("Start Path");
 
   public RobotContainer() {
     configureBindings();
