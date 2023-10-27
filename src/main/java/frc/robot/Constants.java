@@ -8,6 +8,8 @@ public final class Constants {
     public static final int rbMotor = 3; // Right Back | PLACEHOLDER VALUE
     public static final int rfMotor = 4; // Right Front | PLACEHOLDER VALUE
 
+    public static final double trackWidth = 1; // Distance between the left and right wheels in meters | PLACEHOLDER VALUE
+
     // Encoders
     public static final int lEncoder1 = 1; // Left Encoder port 1 | PLACEHOLDER VALUE
     public static final int lEncoder2 = 2; // Left Encoder port 2 | PLACEHOLDER VALUE
