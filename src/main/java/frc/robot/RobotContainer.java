@@ -12,7 +12,6 @@ import frc.robot.subsystems.DriveSubsystem;
 import static frc.robot.Constants.*;
 
 import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.PathPlannerTrajectory;
 
 
 public class RobotContainer {

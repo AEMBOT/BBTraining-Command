@@ -109,9 +109,7 @@ public class DriveSubsystem extends SubsystemBase {
         return m_driveKinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(m_lEncoder.getRate(),m_rEncoder.getRate()));
     }
     // Assuming this is a method in your drive subsystem
-    public Command followPathCommand(String pathName) {
-        PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
-
+    public Command followPathCommand(PathPlannerPath path) {
         // You must wrap the path following command in a FollowPathWithEvents command in
         // order for event markers to work
         return new FollowPathWithEvents(
