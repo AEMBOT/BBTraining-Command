@@ -4,6 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.commands.FollowPathRamsete;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,7 +14,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -118,8 +118,6 @@ public class DriveSubsystem extends SubsystemBase {
                 new FollowPathRamsete(
                         path,
                         this::getPose, // Robot pose supplier
-                        this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting
-                                         // pose)
                         this::getSpeeds, // Current ChassisSpeeds supplier
                         this::drive, // Method that will drive the robot given ChassisSpeeds
                         new ReplanningConfig(), // Default path replanning config. See the API for the options here
