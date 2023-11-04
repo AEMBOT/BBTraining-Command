@@ -86,7 +86,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void drive(ChassisSpeeds speeds) {
         DifferentialDriveWheelSpeeds driveWheelSpeeds = m_driveKinematics.toWheelSpeeds(speeds);
-        m_dDrive.arcadeDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
+        m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
     }
 
     public double getLDist() {
