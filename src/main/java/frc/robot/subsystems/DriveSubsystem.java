@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,7 +29,9 @@ public class DriveSubsystem extends SubsystemBase {
     private final CANSparkMax m_rmMotor = new CANSparkMax(Constants.rmMotor,MotorType.kBrushless);
     private final CANSparkMax m_rfMotor = new CANSparkMax(Constants.rfMotor,MotorType.kBrushless);
 
-
+    DifferentialDrive m_bDrive = new DifferentialDrive(m_lbMotor, m_rbMotor);
+    DifferentialDrive m_mDrive = new DifferentialDrive(m_lmMotor, m_rmMotor);
+    DifferentialDrive m_fDrive = new DifferentialDrive(m_lfMotor, m_rfMotor);
 
     private final Encoder m_lEncoder = new Encoder(
             Constants.lEncoder1,
@@ -83,7 +86,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void arcadeDrive(double speed, double rotSpeed) {
         // m_dDrive.arcadeDrive(speed, rotSpeed);
-        
+        m_bDrive.arcadeDrive(speed, rotSpeed);
+        m_mDrive.arcadeDrive(speed, rotSpeed);
+        m_fDrive.arcadeDrive(speed, rotSpeed);
     }
 
     public void drive(ChassisSpeeds speeds) {
