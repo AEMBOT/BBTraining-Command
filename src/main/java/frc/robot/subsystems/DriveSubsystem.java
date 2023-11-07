@@ -5,6 +5,8 @@ import com.pathplanner.lib.commands.FollowPathRamsete;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.ReplanningConfig;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,23 +15,20 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-    private final MotorControllerGroup m_lMotors = new MotorControllerGroup(
-            new VictorSP(Constants.lbMotor),
-            new VictorSP(Constants.lfMotor));
+    private final CANSparkMax m_lbMotor = new CANSparkMax(Constants.lbMotor, MotorType.kBrushless);
+    private final CANSparkMax m_lmMotor = new CANSparkMax(Constants.lmMotor, MotorType.kBrushless);
+    private final CANSparkMax m_lfMotor = new CANSparkMax(Constants.lfMotor, MotorType.kBrushless);
 
-    private final MotorControllerGroup m_rMotors = new MotorControllerGroup(
-            new VictorSP(Constants.rbMotor),
-            new VictorSP(Constants.rfMotor));
+    private final CANSparkMax m_rbMotor = new CANSparkMax(Constants.rbMotor,MotorType.kBrushless);
+    private final CANSparkMax m_rmMotor = new CANSparkMax(Constants.rmMotor,MotorType.kBrushless);
+    private final CANSparkMax m_rfMotor = new CANSparkMax(Constants.rfMotor,MotorType.kBrushless);
 
-    private final DifferentialDrive m_dDrive = new DifferentialDrive(m_lMotors, m_rMotors);
+
 
     private final Encoder m_lEncoder = new Encoder(
             Constants.lEncoder1,
@@ -62,7 +61,9 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DriveSubsystem() {
-        m_rMotors.setInverted(true);
+        m_rbMotor.setInverted(true);
+        m_rmMotor.setInverted(true);
+        m_rfMotor.setInverted(true);
 
         m_lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
         m_rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
@@ -81,12 +82,20 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
-        m_dDrive.arcadeDrive(speed, rotSpeed);
+        // m_dDrive.arcadeDrive(speed, rotSpeed);
+        
     }
 
     public void drive(ChassisSpeeds speeds) {
         DifferentialDriveWheelSpeeds driveWheelSpeeds = m_driveKinematics.toWheelSpeeds(speeds);
-        m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
+        // m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
+        m_lbMotor.set(driveWheelSpeeds.leftMetersPerSecond);
+        m_lmMotor.set(driveWheelSpeeds.leftMetersPerSecond);
+        m_lfMotor.set(driveWheelSpeeds.leftMetersPerSecond);
+
+        m_rbMotor.set(driveWheelSpeeds.rightMetersPerSecond);
+        m_rmMotor.set(driveWheelSpeeds.rightMetersPerSecond);
+        m_rfMotor.set(driveWheelSpeeds.rightMetersPerSecond);
     }
 
     public double getLDist() {
