@@ -16,31 +16,36 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-    private final CANSparkMax m_lbMotor = new CANSparkMax(Constants.lbMotor, MotorType.kBrushless);
-    private final CANSparkMax m_lmMotor = new CANSparkMax(Constants.lmMotor, MotorType.kBrushless);
-    private final CANSparkMax m_lfMotor = new CANSparkMax(Constants.lfMotor, MotorType.kBrushless);
+    MotorControllerGroup m_lMotors = new MotorControllerGroup(
+        new CANSparkMax(Constants.lMotor1, MotorType.kBrushless),
+        new CANSparkMax(Constants.lMotor2, MotorType.kBrushless),
+        new CANSparkMax(Constants.lMotor3, MotorType.kBrushless)
+    );
 
-    private final CANSparkMax m_rbMotor = new CANSparkMax(Constants.rbMotor,MotorType.kBrushless);
-    private final CANSparkMax m_rmMotor = new CANSparkMax(Constants.rmMotor,MotorType.kBrushless);
-    private final CANSparkMax m_rfMotor = new CANSparkMax(Constants.rfMotor,MotorType.kBrushless);
+    MotorControllerGroup m_rMotors = new MotorControllerGroup(
+        new CANSparkMax(Constants.rMotor1,MotorType.kBrushless),
+        new CANSparkMax(Constants.rMotor2,MotorType.kBrushless),
+        new CANSparkMax(Constants.rMotor3,MotorType.kBrushless)
+    );
 
-    DifferentialDrive m_bDrive = new DifferentialDrive(m_lbMotor, m_rbMotor);
-    DifferentialDrive m_mDrive = new DifferentialDrive(m_lmMotor, m_rmMotor);
-    DifferentialDrive m_fDrive = new DifferentialDrive(m_lfMotor, m_rfMotor);
+    DifferentialDrive m_dDrive = new DifferentialDrive(m_lMotors, m_rMotors);
 
     private final Encoder m_lEncoder = new Encoder(
             Constants.lEncoder1,
             Constants.lEncoder2,
+            Constants.lEncoder3,
             Constants.lEncoderReverse);
 
     private final Encoder m_rEncoder = new Encoder(
             Constants.rEncoder1,
             Constants.rEncoder2,
+            Constants.rEncoder3,
             Constants.rEncoderReverse);
 
     DifferentialDriveKinematics m_driveKinematics = new DifferentialDriveKinematics(Constants.trackWidth);
@@ -64,9 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DriveSubsystem() {
-        m_rbMotor.setInverted(true);
-        m_rmMotor.setInverted(true);
-        m_rfMotor.setInverted(true);
+        
 
         m_lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
         m_rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
@@ -85,22 +88,12 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
-        // m_dDrive.arcadeDrive(speed, rotSpeed);
-        m_bDrive.arcadeDrive(speed, rotSpeed);
-        m_mDrive.arcadeDrive(speed, rotSpeed);
-        m_fDrive.arcadeDrive(speed, rotSpeed);
+        m_dDrive.arcadeDrive(speed, rotSpeed);
     }
 
     public void drive(ChassisSpeeds speeds) {
         DifferentialDriveWheelSpeeds driveWheelSpeeds = m_driveKinematics.toWheelSpeeds(speeds);
-        // m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
-        m_lbMotor.set(driveWheelSpeeds.leftMetersPerSecond);
-        m_lmMotor.set(driveWheelSpeeds.leftMetersPerSecond);
-        m_lfMotor.set(driveWheelSpeeds.leftMetersPerSecond);
-
-        m_rbMotor.set(driveWheelSpeeds.rightMetersPerSecond);
-        m_rmMotor.set(driveWheelSpeeds.rightMetersPerSecond);
-        m_rfMotor.set(driveWheelSpeeds.rightMetersPerSecond);
+        m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
     }
 
     public double getLDist() {
