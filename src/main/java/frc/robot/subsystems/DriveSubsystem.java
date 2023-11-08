@@ -54,11 +54,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     private final DifferentialDriveOdometry m_odometry;
 
-    private final PIDController m_lPid = new PIDController(Constants.kP, Constants.kI, Constants.kP);
-    private final PIDController m_rPid = new PIDController(Constants.kP, Constants.kI, Constants.kD);
+    private final PIDController m_lPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKP);
+    private final PIDController m_rPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKD);
     
-    private final SimpleMotorFeedforward m_lFeedForward = new SimpleMotorFeedforward(Constants.kS, Constants.kV,Constants.kA);
-    private final SimpleMotorFeedforward m_rFeedForward = new SimpleMotorFeedforward(Constants.kS, Constants.kV,Constants.kA);
+    private final SimpleMotorFeedforward m_lFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
+    private final SimpleMotorFeedforward m_rFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
 
     public void resetEncoders() {
         m_lEncoder.reset();
