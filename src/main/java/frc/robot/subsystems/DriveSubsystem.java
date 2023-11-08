@@ -8,6 +8,8 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -52,6 +54,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     private final DifferentialDriveOdometry m_odometry;
 
+    private final PIDController m_lPid = new PIDController(Constants.kP, Constants.kI, Constants.kP);
+    private final PIDController m_rPid = new PIDController(Constants.kP, Constants.kI, Constants.kD);
+    
+    private final SimpleMotorFeedforward m_lFeedForward = new SimpleMotorFeedforward(Constants.kS, Constants.kV,Constants.kA);
+    private final SimpleMotorFeedforward m_rFeedForward = new SimpleMotorFeedforward(Constants.kS, Constants.kV,Constants.kA);
+
     public void resetEncoders() {
         m_lEncoder.reset();
         m_rEncoder.reset();
@@ -91,7 +99,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void drive(ChassisSpeeds speeds) {
         DifferentialDriveWheelSpeeds driveWheelSpeeds = m_driveKinematics.toWheelSpeeds(speeds);
-        m_dDrive.tankDrive(driveWheelSpeeds.leftMetersPerSecond, driveWheelSpeeds.rightMetersPerSecond);
+        m_lMotors.setVoltage(m_lPid.calculate(m_lEncoder.getRate(),driveWheelSpeeds.leftMetersPerSecond)
+            +m_lFeedForward.calculate(driveWheelSpeeds.leftMetersPerSecond));
+        m_rMotors.setVoltage(m_rPid.calculate(m_rEncoder.getRate(),driveWheelSpeeds.rightMetersPerSecond)
+            +m_rFeedForward.calculate(driveWheelSpeeds.rightMetersPerSecond));
     }
 
     public double getLDist() {

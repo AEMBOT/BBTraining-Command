@@ -26,4 +26,13 @@ public final class Constants {
     // Control
     public static final int xBoxControllerPort = 0; // PLACEHOLDER VALUE
     public static final double turnSensitivity = 1; // The sensitivity of the turn control (right joystick x)
+
+    // PID Gains
+    public static final double kP = 0.01; // Proportional Gain | PLACEHOLDER VALUE
+    public static final double kI = 0.0;  // Integral Gain
+    public static final double kD = 0.01; // Derivitave Gain | PLACEHOLDER VALUE
+    // Feed Forward Gains
+    public static final double kS = 0.01; // Static Gain | PLACEHOLDER VALUE
+    public static final double kV = 0.01; // Velocity Gain | PLACEHOLDER VALUE
+    public static final double kA = 0.01; // Acceleration Gain | PLACEHOLDER VALUE
 }
