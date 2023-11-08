@@ -37,15 +37,13 @@ public class DriveSubsystem extends SubsystemBase {
     DifferentialDrive m_dDrive = new DifferentialDrive(m_lMotors, m_rMotors);
 
     private final Encoder m_lEncoder = new Encoder(
-            Constants.lEncoder1,
-            Constants.lEncoder2,
-            Constants.lEncoder3,
+            Constants.lEncoderA,
+            Constants.lEncoderB,
             Constants.lEncoderReverse);
 
     private final Encoder m_rEncoder = new Encoder(
-            Constants.rEncoder1,
-            Constants.rEncoder2,
-            Constants.rEncoder3,
+            Constants.rEncoderA,
+            Constants.rEncoderB,
             Constants.rEncoderReverse);
 
     DifferentialDriveKinematics m_driveKinematics = new DifferentialDriveKinematics(Constants.trackWidth);
