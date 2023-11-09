@@ -31,7 +31,7 @@ public final class Constants {
     public static final double driveKP = 0.01; // Proportional Gain | PLACEHOLDER VALUE
     public static final double driveKI = 0.0;  // Integral Gain
     public static final double driveKD = 0.01; // Derivitave Gain | PLACEHOLDER VALUE
-    // Dricetrain Feed Forward Gains
+    // Drivetrain Feed Forward Gains
     public static final double driveKS = 0.01; // Static Gain | PLACEHOLDER VALUE
     public static final double driveKV = 0.01; // Velocity Gain | PLACEHOLDER VALUE
     public static final double driveKA = 0.01; // Acceleration Gain | PLACEHOLDER VALUE
