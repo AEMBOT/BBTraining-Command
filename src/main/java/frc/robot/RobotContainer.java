@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+
 import static frc.robot.Constants.*;
 
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -16,6 +18,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 public class RobotContainer {
   private DriveSubsystem drive = new DriveSubsystem();
+  private IntakeSubsystem intake = new IntakeSubsystem();
 
   private final CommandXboxController m_controller = new CommandXboxController(xBoxControllerPort);
 
@@ -31,6 +34,8 @@ public class RobotContainer {
         },
         drive)
     );
+
+    m_controller.a().whileTrue(intake.enableIntake());
   }
 
   private void configureBindings() {}
