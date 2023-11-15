@@ -94,7 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
-        m_dDrive.arcadeDrive(speed, rotSpeed*Constants.turnSensitivity);
+        m_dDrive.arcadeDrive(speed, rotSpeed);
     }
 
     public void drive(ChassisSpeeds speeds) {
