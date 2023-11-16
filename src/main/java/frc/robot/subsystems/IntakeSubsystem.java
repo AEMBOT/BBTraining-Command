@@ -19,6 +19,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command enableIntake() {
-        return this.startEnd(()->{intakeOn();}, ()->{intakeOff();});
+        return this.startEnd(()->intakeOn(), ()->intakeOff());
     }
 }
