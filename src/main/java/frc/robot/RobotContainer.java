@@ -34,7 +34,7 @@ public class RobotContainer {
         drive)
     );
 
-    m_controller.a().whileTrue(intake.enableIntake());
+    m_controller.rightBumper().whileTrue(intake.enableIntake());
   }
 
   private void configureBindings() {}
