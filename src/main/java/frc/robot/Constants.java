@@ -38,5 +38,5 @@ public final class Constants {
 
     // Intake
     public static final int intakeMotorPort = 7;
-    public static final double intakeMotorVoltage = 1;
+    public static final double intakeMotorVoltage = -1;
 }
