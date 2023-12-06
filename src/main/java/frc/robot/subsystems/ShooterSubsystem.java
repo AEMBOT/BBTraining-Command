@@ -32,4 +32,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void indexerOverideOff(){
         indexerOveride = false;
     }
+    public boolean getIndexerOveride(){
+        return indexerOveride;
+    }
 }
