@@ -26,4 +26,10 @@ public class ShooterSubsystem extends SubsystemBase {
        }
         
     }
+    public void indexerOverideOn(){
+        indexerOveride = true;
+    }
+    public void indexerOverideOff(){
+        indexerOveride = false;
+    }
 }
