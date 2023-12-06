@@ -48,7 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
             Constants.rEncoderA,
             Constants.rEncoderB,
             Constants.rEncoderReverse);
-
+            
     DifferentialDriveKinematics m_driveKinematics = new DifferentialDriveKinematics(Constants.trackWidth);
     
     private final AHRS m_gyro = new AHRS();
@@ -92,6 +92,7 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         m_odometry.update(m_gyro.getRotation2d(), m_lEncoder.getDistance(), m_rEncoder.getDistance());
+
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
