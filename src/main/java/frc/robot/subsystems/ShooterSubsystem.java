@@ -30,12 +30,17 @@ public class ShooterSubsystem extends SubsystemBase {
     
     CANSparkMax conveyorMotor = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
 
+    Boolean indexerOveride = false;
+
     @Override 
     public void periodic() {
+       if(indexerOveride == false){
         if(indexerSensor.getProximity()<=Constants.maxProximitys){
             conveyorMotor.setVoltage(0);
         } else{ 
             conveyorMotor.setVoltage(1);
         }
+       }
+        
     }
 }
