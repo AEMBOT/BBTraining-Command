@@ -16,14 +16,14 @@ public class ShooterSubsystem extends SubsystemBase {
     CANSparkMax conveyorMotor = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
     CANSparkMax flywheelMotor = new CANSparkMax(Constants.FlywheelMotorPort, MotorType.kBrushless);
 
-    Boolean indexerOveride = false;
+    Boolean indexerOverride = false;
 
-    PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKP);
+    PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKD);
     SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV,Constants.shooterKA);
 
     @Override 
     public void periodic() {
-       if(indexerOveride == false){
+       if(!indexerOverride){
         if(indexerSensor.getProximity()<=Constants.maxProximity){
             conveyorMotor.setVoltage(0);
         } else{ 
@@ -33,16 +33,16 @@ public class ShooterSubsystem extends SubsystemBase {
         
     }
 
-    public void IndexerOverideOn(){
-        indexerOveride = true;
+    public void IndexerOverrideOn(){
+        indexerOverride = true;
     }
 
-    public void IndexerOverideOff(){
-        indexerOveride = false;
+    public void IndexerOverrideOff(){
+        indexerOverride = false;
     }
 
-    public boolean GetIndexerOveride(){
-        return indexerOveride;
+    public boolean GetIndexerOverride(){
+        return indexerOverride;
     }
 
     public void SetFlywheelSpeed(Double speed) {

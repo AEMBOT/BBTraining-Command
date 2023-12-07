@@ -24,107 +24,107 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-    MotorControllerGroup m_lMotors = new MotorControllerGroup(
+    MotorControllerGroup lMotors = new MotorControllerGroup(
         new CANSparkMax(Constants.lMotor1, MotorType.kBrushless),
         new CANSparkMax(Constants.lMotor2, MotorType.kBrushless),
         new CANSparkMax(Constants.lMotor3, MotorType.kBrushless)
     );
 
-    MotorControllerGroup m_rMotors = new MotorControllerGroup(
+    MotorControllerGroup rMotors = new MotorControllerGroup(
         new CANSparkMax(Constants.rMotor1,MotorType.kBrushless),
         new CANSparkMax(Constants.rMotor2,MotorType.kBrushless),
         new CANSparkMax(Constants.rMotor3,MotorType.kBrushless)
     );
     
 
-    DifferentialDrive m_dDrive = new DifferentialDrive(m_lMotors, m_rMotors);
+    DifferentialDrive dDrive = new DifferentialDrive(lMotors, rMotors);
 
-    private final Encoder m_lEncoder = new Encoder(
+    private final Encoder lEncoder = new Encoder(
             Constants.lEncoderA,
             Constants.lEncoderB,
             Constants.lEncoderReverse);
 
-    private final Encoder m_rEncoder = new Encoder(
+    private final Encoder rEncoder = new Encoder(
             Constants.rEncoderA,
             Constants.rEncoderB,
             Constants.rEncoderReverse);
             
-    DifferentialDriveKinematics m_driveKinematics = new DifferentialDriveKinematics(Constants.trackWidth);
+    DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.trackWidth);
     
-    private final AHRS m_gyro = new AHRS();
+    private final AHRS gyro = new AHRS();
 
-    private final DifferentialDriveOdometry m_odometry;
+    private final DifferentialDriveOdometry odometry;
 
-    private final PIDController m_lPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKP);
-    private final PIDController m_rPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKD);
+    private final PIDController lPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKP);
+    private final PIDController rPid = new PIDController(Constants.driveKP, Constants.driveKI, Constants.driveKD);
     
-    private final SimpleMotorFeedforward m_lFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
-    private final SimpleMotorFeedforward m_rFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
+    private final SimpleMotorFeedforward lFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
+    private final SimpleMotorFeedforward rFeedForward = new SimpleMotorFeedforward(Constants.driveKS, Constants.driveKV,Constants.driveKA);
 
     public void resetEncoders() {
-        m_lEncoder.reset();
-        m_rEncoder.reset();
+        lEncoder.reset();
+        rEncoder.reset();
     }
 
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
-        m_odometry.resetPosition(getRot(), getRDist(), getLDist(), pose);
+        odometry.resetPosition(getRot(), getRDist(), getLDist(), pose);
     }
 
     public void resetRot() {
-        m_gyro.reset();
+        gyro.reset();
     }
 
     public DriveSubsystem() {
-        m_lMotors.setInverted(true);
+        lMotors.setInverted(true);
 
-        m_lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
-        m_rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
+        lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
+        rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
 
         resetEncoders();
 
-        m_odometry = new DifferentialDriveOdometry(
-                m_gyro.getRotation2d(),
-                m_lEncoder.getDistance(),
-                m_rEncoder.getDistance());
+        odometry = new DifferentialDriveOdometry(
+                gyro.getRotation2d(),
+                lEncoder.getDistance(),
+                rEncoder.getDistance());
     }
 
     @Override
     public void periodic() {
-        m_odometry.update(m_gyro.getRotation2d(), m_lEncoder.getDistance(), m_rEncoder.getDistance());
+        odometry.update(gyro.getRotation2d(), lEncoder.getDistance(), rEncoder.getDistance());
 
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
-        m_dDrive.arcadeDrive(speed, rotSpeed);
+        dDrive.arcadeDrive(speed, rotSpeed);
     }
 
     public void drive(ChassisSpeeds speeds) {
-        DifferentialDriveWheelSpeeds driveWheelSpeeds = m_driveKinematics.toWheelSpeeds(speeds);
-        m_lMotors.setVoltage(m_lPid.calculate(m_lEncoder.getRate(),driveWheelSpeeds.leftMetersPerSecond)
-            +m_lFeedForward.calculate(driveWheelSpeeds.leftMetersPerSecond));
-        m_rMotors.setVoltage(m_rPid.calculate(m_rEncoder.getRate(),driveWheelSpeeds.rightMetersPerSecond)
-            +m_rFeedForward.calculate(driveWheelSpeeds.rightMetersPerSecond));
+        DifferentialDriveWheelSpeeds driveWheelSpeeds = driveKinematics.toWheelSpeeds(speeds);
+        lMotors.setVoltage(lPid.calculate(lEncoder.getRate(),driveWheelSpeeds.leftMetersPerSecond)
+            + lFeedForward.calculate(driveWheelSpeeds.leftMetersPerSecond));
+        rMotors.setVoltage(rPid.calculate(rEncoder.getRate(),driveWheelSpeeds.rightMetersPerSecond)
+            + rFeedForward.calculate(driveWheelSpeeds.rightMetersPerSecond));
     }
 
     public double getLDist() {
-        return m_lEncoder.getDistance();
+        return lEncoder.getDistance();
     }
 
     public double getRDist() {
-        return m_rEncoder.getDistance();
+        return rEncoder.getDistance();
     }
 
     public Rotation2d getRot() {
-        return m_gyro.getRotation2d();
+        return gyro.getRotation2d();
     }
 
     public Pose2d getPose() {
-        return m_odometry.getPoseMeters();
+        return odometry.getPoseMeters();
     }
 
     public ChassisSpeeds getSpeeds() {
-        return m_driveKinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(m_lEncoder.getRate(),m_rEncoder.getRate()));
+        return driveKinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(lEncoder.getRate(), rEncoder.getRate()));
     }
     // Assuming this is a method in your drive subsystem
     public Command followPathCommand(PathPlannerPath path) {
