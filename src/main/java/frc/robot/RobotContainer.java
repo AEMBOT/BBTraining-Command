@@ -19,8 +19,8 @@ import com.pathplanner.lib.path.PathPlannerPath;
 public class RobotContainer {
   private DriveSubsystem drive = new DriveSubsystem();
   private IntakeSubsystem intake = new IntakeSubsystem();
-  SlewRateLimiter filterx = new SlewRateLimiter(4);
-  SlewRateLimiter filtery = new SlewRateLimiter(4);
+  SlewRateLimiter filterx = new SlewRateLimiter(slewrate);
+  SlewRateLimiter filtery = new SlewRateLimiter(slewrate);
 
   private final CommandXboxController m_controller = new CommandXboxController(xBoxControllerPort);
   private final PathPlannerPath pathTrajectory = PathPlannerPath.fromPathFile("Start Path");
