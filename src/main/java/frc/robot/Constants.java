@@ -35,6 +35,8 @@ public final class Constants {
     public static final double driveKV = 0.01; // Velocity Gain | PLACEHOLDER VALUE
     public static final double driveKA = 0.01; // Acceleration Gain | PLACEHOLDER VALUE
 
+    // Shooter
+
     // Intake
     public static final int intakeMotorPort = 7;
     public static final double intakeMotorVoltage = 1;
@@ -43,4 +45,14 @@ public final class Constants {
     public static final int maxProximity = 0;
     public static final int conveyorPort = 0;
 
+    // Flywheel
+    public static final int FlywheelMotorPort = 8;
+    // PID Gains
+    public static final double shooterKP = 0.01;
+    public static final double shooterKI = 0.0;
+    public static final double shooterKD = 0.01;
+    // Feed Forward gains
+    public static final double shooterKS = 0.01;
+    public static final double shooterKV = 0.01;
+    public static final double shooterKA = 0.01;
 }
