@@ -2,13 +2,13 @@ package frc.robot;
 
 public final class Constants {
     // Motors
-    public static final int lMotor1 = 4; // Left Back
-    public static final int lMotor2 = 5; // Left Middle
-    public static final int lMotor3 = 6; // Left Front
+    public static final int lMotor1 = 1; // Left Back
+    public static final int lMotor2 = 2; // Left Middle
+    public static final int lMotor3 = 3; // Left Front
 
-    public static final int rMotor1 = 1; // Right Back
-    public static final int rMotor2 = 2; // Right Back
-    public static final int rMotor3 = 3; // Right Front
+    public static final int rMotor1 = 4; // Right Back
+    public static final int rMotor2 = 5; // Right Back
+    public static final int rMotor3 = 6; // Right Front
 
     public static final double trackWidth = 1; // Distance between the left and right wheels in meters | PLACEHOLDER VALUE
     // Encoders
@@ -37,7 +37,7 @@ public final class Constants {
 
     // Intake
     public static final int intakeMotorPort = 7;
-    public static final double intakeMotorVoltage = -1;
+    public static final double intakeMotorVoltage = 1;
 
     // Indexer
     public static final int maxProximity = 0;
