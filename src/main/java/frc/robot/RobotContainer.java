@@ -22,7 +22,7 @@ public class RobotContainer {
   SlewRateLimiter filterx = new SlewRateLimiter(4);
   SlewRateLimiter filtery = new SlewRateLimiter(4);
 
-  private final CommandXboxController m_controller = new CommandXboxController(xBoxControllerPort);
+  private final CommandXboxController controller = new CommandXboxController(xBoxControllerPort);
   private final PathPlannerPath pathTrajectory = PathPlannerPath.fromPathFile("Start Path");
 
   public RobotContainer() {
@@ -31,14 +31,14 @@ public class RobotContainer {
     drive.setDefaultCommand(
       new RunCommand(
         () -> drive.arcadeDrive(
-          filtery.calculate(m_controller.getLeftY()), 
-          filterx.calculate(m_controller.getRightX()) * turnSensitivity
+          filtery.calculate(controller.getLeftY()),
+          filterx.calculate(controller.getRightX()) * turnSensitivity
         ), 
         drive
       )
     );
 
-    m_controller.rightBumper().whileTrue(intake.enableIntake());
+    controller.rightBumper().whileTrue(intake.enableIntake());
   }
 
   private void configureBindings() {}

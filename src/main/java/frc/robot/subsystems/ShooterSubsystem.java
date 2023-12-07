@@ -18,7 +18,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     Boolean indexerOverride = false;
 
-    PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKP);
+    PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKD);
     SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV,Constants.shooterKA);
 
     @Override 

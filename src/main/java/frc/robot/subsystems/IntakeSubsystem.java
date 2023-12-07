@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    CANSparkMax m_motor = new CANSparkMax(Constants.intakeMotorPort, MotorType.kBrushless);
+    CANSparkMax motor = new CANSparkMax(Constants.intakeMotorPort, MotorType.kBrushless);
 
     public void intakeOn() {
-        m_motor.setVoltage(Constants.intakeMotorVoltage);
+        motor.setVoltage(Constants.intakeMotorVoltage);
     }
     
     public void intakeOff() {
-        m_motor.setVoltage(0);
+        motor.setVoltage(0);
     }
 
     public Command enableIntake() {
