@@ -31,8 +31,8 @@ public class RobotContainer {
     drive.setDefaultCommand(
       new RunCommand(
         () -> drive.arcadeDrive(
-          filtery.calculate(m_controller.getLeftY()), 
-          filterx.calculate(m_controller.getRightX()) * turnSensitivity
+          filtery.calculate(-m_controller.getLeftY()), 
+          filterx.calculate(-m_controller.getRightX()) * turnSensitivity
         ), 
         drive
       )
