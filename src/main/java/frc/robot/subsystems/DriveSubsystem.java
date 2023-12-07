@@ -76,7 +76,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DriveSubsystem() {
-        m_rMotors.setInverted(true);
+        m_lMotors.setInverted(true);
 
         m_lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
         m_rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
