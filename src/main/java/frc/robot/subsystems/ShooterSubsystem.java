@@ -54,12 +54,21 @@ public class ShooterSubsystem extends SubsystemBase {
         conveyorMotor.setVoltage(5);
     }
 
+    private void IndexerReverse() {
+        IndexerOverrideOn();
+
+        conveyorMotor.setVoltage(-5);
+    }
+
     public boolean GetIndexerOverride(){
         return indexerOverride;
     }
 
     public CommandBase RunIndexerCommand() {
         return this.startEnd(()->IndexerOn(), ()->IndexerOverrideOff());
+    }
+    public CommandBase ReverseIndexerCommand() {
+        return this.startEnd(()->IndexerReverse(),()->IndexerOverrideOff());
     }
 
     public void SetFlywheelSpeed(Double speed) {
