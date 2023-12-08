@@ -21,8 +21,8 @@ public class RobotContainer {
   private DriveSubsystem drive = new DriveSubsystem();
   private IntakeSubsystem intake = new IntakeSubsystem();
   private ShooterSubsystem shooter = new ShooterSubsystem();
-  SlewRateLimiter filterx = new SlewRateLimiter(slewrate);
-  SlewRateLimiter filtery = new SlewRateLimiter(slewrate);
+  SlewRateLimiter filterx = new SlewRateLimiter(slewRate);
+  SlewRateLimiter filtery = new SlewRateLimiter(slewRate);
 
   private final CommandXboxController controller = new CommandXboxController(xBoxControllerPort);
   private final PathPlannerPath pathTrajectory = PathPlannerPath.fromPathFile("Start Path");

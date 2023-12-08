@@ -10,7 +10,7 @@ public final class Constants {
     public static final int rMotor2 = 2; // Right Back
     public static final int rMotor3 = 3; // Right Front
 
-    public static final double slewrate = 3.5;
+    public static final double slewRate = 3.5;
 
     public static final double trackWidth = 1; // Distance between the left and right wheels in meters | PLACEHOLDER VALUE
     // Encoders
@@ -31,7 +31,7 @@ public final class Constants {
     // Drivetrain PID Gains
     public static final double driveKP = 0.01; // Proportional Gain | PLACEHOLDER VALUE
     public static final double driveKI = 0.0;  // Integral Gain
-    public static final double driveKD = 0.01; // Derivitave Gain | PLACEHOLDER VALUE
+    public static final double driveKD = 0.01; // Derivative Gain | PLACEHOLDER VALUE
     // Drivetrain Feed Forward Gains
     public static final double driveKS = 0.01; // Static Gain | PLACEHOLDER VALUE
     public static final double driveKV = 0.01; // Velocity Gain | PLACEHOLDER VALUE
