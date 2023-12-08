@@ -17,8 +17,14 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intakeOff() {
         motor.setVoltage(0);
     }
+    public void intakeReverse() {
+        motor.setVoltage(-Constants.intakeMotorVoltage);
+    }
 
     public Command enableIntake() {
         return this.startEnd(()->intakeOn(), ()->intakeOff());
+    }
+    public Command reverseIntake() {
+        return this.startEnd(()->intakeReverse(), ()->intakeOff());
     }
 }

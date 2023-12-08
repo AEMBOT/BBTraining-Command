@@ -39,6 +39,8 @@ public class RobotContainer {
     );
 
     controller.rightBumper().whileTrue(intake.enableIntake());
+
+    controller.b().whileTrue(intake.reverseIntake());
   }
 
   private void configureBindings() {}
