@@ -11,6 +11,8 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.I2C;
 import frc.robot.Constants;
 
+import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
+
 public class ShooterSubsystem extends SubsystemBase {
     ColorSensorV3 indexerSensor = new ColorSensorV3(I2C.Port.kMXP);
     
@@ -22,13 +24,17 @@ public class ShooterSubsystem extends SubsystemBase {
     PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKD);
     SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV,Constants.shooterKA);
 
+    public ShooterSubsystem() {
+        flywheelMotor.setInverted(true);
+    }
+
     @Override 
     public void periodic() {
        if(!indexerOverride){
         if(indexerSensor.getProximity()<=Constants.maxProximity){
             conveyorMotor.setVoltage(0);
         } else{ 
-            conveyorMotor.setVoltage(1);
+            conveyorMotor.setVoltage(2);
         }
        }
         
@@ -45,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private void IndexerOn() {
         IndexerOverrideOn();
 
-        conveyorMotor.setVoltage(1);
+        conveyorMotor.setVoltage(5);
     }
 
     public boolean GetIndexerOverride(){
@@ -75,12 +81,16 @@ public class ShooterSubsystem extends SubsystemBase {
                 }
         );
     }
-    public CommandBase ShooterOff(){
+    public CommandBase ShooterOffCommand() {
         return runOnce(
-                () ->{
+                () -> {
                     FlywheelOff();
                     IndexerOverrideOff();
                 }
         );
     }
+
+  public CommandBase ShootCommand() {
+        return FlywheelOnCommand().andThen(waitSeconds(1).andThen(IndexerOnCommand().andThen(waitSeconds(1).andThen(ShooterOffCommand()))));
+  }
 }

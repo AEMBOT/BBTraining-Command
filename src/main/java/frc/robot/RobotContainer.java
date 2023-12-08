@@ -14,11 +14,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 import static frc.robot.Constants.*;
 
 import com.pathplanner.lib.path.PathPlannerPath;
+import frc.robot.subsystems.ShooterSubsystem;
 
 
 public class RobotContainer {
   private DriveSubsystem drive = new DriveSubsystem();
   private IntakeSubsystem intake = new IntakeSubsystem();
+  private ShooterSubsystem shooter = new ShooterSubsystem();
   SlewRateLimiter filterx = new SlewRateLimiter(slewrate);
   SlewRateLimiter filtery = new SlewRateLimiter(slewrate);
 
@@ -41,6 +43,8 @@ public class RobotContainer {
     controller.rightBumper().whileTrue(intake.enableIntake());
 
     controller.b().whileTrue(intake.reverseIntake());
+
+    controller.leftBumper().onTrue(shooter.ShootCommand());
   }
 
   private void configureBindings() {}

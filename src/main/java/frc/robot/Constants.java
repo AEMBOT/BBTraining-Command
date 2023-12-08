@@ -45,10 +45,10 @@ public final class Constants {
 
     // Indexer
     public static final int maxProximity = 0;
-    public static final int conveyorPort = 0;
+    public static final int conveyorPort = 8;
 
     // Flywheel
-    public static final int FlywheelMotorPort = 8;
+    public static final int FlywheelMotorPort = 9;
 
     public static final double FlywheelSpeed = 60;
     // PID Gains
