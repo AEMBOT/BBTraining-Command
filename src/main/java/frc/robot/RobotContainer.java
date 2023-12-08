@@ -44,6 +44,8 @@ public class RobotContainer {
 
     controller.b().whileTrue(intake.reverseIntake());
 
+    controller.a().whileTrue(shooter.RunIndexerCommand()); // Possibly temporary binding
+
     controller.leftBumper().onTrue(shooter.ShootCommand());
   }
 

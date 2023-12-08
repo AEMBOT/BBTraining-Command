@@ -58,6 +58,10 @@ public class ShooterSubsystem extends SubsystemBase {
         return indexerOverride;
     }
 
+    public CommandBase RunIndexerCommand() {
+        return this.startEnd(()->IndexerOn(), ()->IndexerOverrideOff());
+    }
+
     public void SetFlywheelSpeed(Double speed) {
         flywheelMotor.setVoltage(flywheelPID.calculate(flywheelMotor.getEncoder().getVelocity(),speed)
         +flywheelFeedForward.calculate(speed));
@@ -81,6 +85,7 @@ public class ShooterSubsystem extends SubsystemBase {
                 }
         );
     }
+
     public CommandBase ShooterOffCommand() {
         return runOnce(
                 () -> {
