@@ -49,6 +49,8 @@ public final class Constants {
 
     // Flywheel
     public static final int FlywheelMotorPort = 8;
+
+    public static final double FlywheelSpeed = 60;
     // PID Gains
     public static final double shooterKP = 0.01;
     public static final double shooterKI = 0.0;
@@ -57,4 +59,5 @@ public final class Constants {
     public static final double shooterKS = 0.01;
     public static final double shooterKV = 0.01;
     public static final double shooterKA = 0.01;
+
 }

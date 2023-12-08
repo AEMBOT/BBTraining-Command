@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -41,6 +42,12 @@ public class ShooterSubsystem extends SubsystemBase {
         indexerOverride = false;
     }
 
+    private void IndexerOn() {
+        IndexerOverrideOn();
+
+        conveyorMotor.setVoltage(1);
+    }
+
     public boolean GetIndexerOverride(){
         return indexerOverride;
     }
@@ -52,5 +59,28 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void FlywheelOff() {
         flywheelMotor.setVoltage(0);
+    }
+    public CommandBase FlywheelOnCommand() {
+        return runOnce(
+                () ->{
+                    SetFlywheelSpeed(Constants.FlywheelSpeed);
+                }
+        );
+    }
+
+    public CommandBase IndexerOnCommand() {
+        return runOnce(
+                () ->{
+                    IndexerOn();
+                }
+        );
+    }
+    public CommandBase ShooterOff(){
+        return runOnce(
+                () ->{
+                    FlywheelOff();
+                    IndexerOverrideOff();
+                }
+        );
     }
 }
