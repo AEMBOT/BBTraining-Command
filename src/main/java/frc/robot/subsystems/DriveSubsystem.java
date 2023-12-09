@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -156,7 +157,7 @@ public class DriveSubsystem extends SubsystemBase {
         );
     }
     public Command driveForward(){
-        return runOnce(
+        return run(
                 () -> {
                     arcadeDrive(1,0);
                 }
@@ -170,6 +171,6 @@ public class DriveSubsystem extends SubsystemBase {
         );
     }
     public Command randomAuto(){
-        return driveForward().andThen(waitSeconds(2).andThen(stopDriving()));
+        return driveForward().withTimeout(0.5).andThen(stopDriving());
     }
 }
