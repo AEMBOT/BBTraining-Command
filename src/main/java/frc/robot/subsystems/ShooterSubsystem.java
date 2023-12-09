@@ -1,50 +1,51 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
 
 public class ShooterSubsystem extends SubsystemBase {
     ColorSensorV3 indexerSensor = new ColorSensorV3(I2C.Port.kMXP);
-    
+
     CANSparkMax conveyorMotor = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
     CANSparkMax flywheelMotor = new CANSparkMax(Constants.FlywheelMotorPort, MotorType.kBrushless);
 
     Boolean indexerOverride = false;
 
     PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKD);
-    SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV,Constants.shooterKA);
+    SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV, Constants.shooterKA);
 
     public ShooterSubsystem() {
         flywheelMotor.setInverted(true);
     }
 
-    @Override 
+    @Override
     public void periodic() {
-       if(!indexerOverride){
-        if(indexerSensor.getProximity()<=Constants.maxProximity){
-            conveyorMotor.setVoltage(0);
-        } else{ 
-            conveyorMotor.setVoltage(2);
+        SmartDashboard.putNumber("indexer proximity", indexerSensor.getProximity());
+        if (!indexerOverride) {
+            if (indexerSensor.getProximity() <= Constants.maxProximity) {
+                conveyorMotor.setVoltage(0);
+            } else {
+                conveyorMotor.setVoltage(2);
+            }
         }
-       }
-        
+
     }
 
-    public void IndexerOverrideOn(){
+    public void IndexerOverrideOn() {
         indexerOverride = true;
     }
 
-    public void IndexerOverrideOff(){
+    public void IndexerOverrideOff() {
         indexerOverride = false;
     }
 
@@ -60,31 +61,34 @@ public class ShooterSubsystem extends SubsystemBase {
         conveyorMotor.setVoltage(-5);
     }
 
-    public boolean GetIndexerOverride(){
+    public boolean GetIndexerOverride() {
         return indexerOverride;
     }
 
     public CommandBase RunIndexerCommand() {
-        return this.startEnd(()->IndexerOn(), ()->IndexerOverrideOff());
+        return this.startEnd(() -> IndexerOn(), () -> IndexerOverrideOff());
     }
+
     public CommandBase ReverseIndexerCommand() {
-        return this.startEnd(()->IndexerReverse(),()->IndexerOverrideOff());
+        return this.startEnd(() -> IndexerReverse(), () -> IndexerOverrideOff());
     }
 
     public void SetFlywheelSpeed(Double speed) {
-        flywheelMotor.setVoltage(flywheelPID.calculate(flywheelMotor.getEncoder().getVelocity(),speed)
-        +flywheelFeedForward.calculate(speed));
+        flywheelMotor.setVoltage(flywheelPID.calculate(flywheelMotor.getEncoder().getVelocity(), speed)
+                + flywheelFeedForward.calculate(speed));
     }
-    public void tempSetFlywheelSpeed(Double voltage){
+
+    public void tempSetFlywheelSpeed(Double voltage) {
         flywheelMotor.setVoltage(voltage);
     }
 
     public void FlywheelOff() {
         flywheelMotor.setVoltage(0);
     }
+
     public CommandBase FlywheelOnCommand() {
         return runOnce(
-                () ->{
+                () -> {
                     tempSetFlywheelSpeed(Constants.tempFlywheelSpeed);
                 }
         );
@@ -92,7 +96,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public CommandBase IndexerOnCommand() {
         return runOnce(
-                () ->{
+                () -> {
                     IndexerOn();
                 }
         );
@@ -107,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
         );
     }
 
-  public CommandBase ShootCommand() {
+    public CommandBase ShootCommand() {
         return FlywheelOnCommand().andThen(waitSeconds(1).andThen(IndexerOnCommand().andThen(waitSeconds(1).andThen(ShooterOffCommand()))));
-  }
+    }
 }
