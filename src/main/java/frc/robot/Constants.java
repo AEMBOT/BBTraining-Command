@@ -25,7 +25,7 @@ public final class Constants {
     public static final double encoderDistancePerPulse = 1; // PLACEHOLDER VALUE
 
     // Control
-    public static final int xBoxControllerPort = 0; // PLACEHOLDER VALUE
+    public static final int xBoxControllerPort1 = 0; // PLACEHOLDER VALUE
     public static final double turnSensitivity = 1; // The sensitivity of the turn control (right joystick x)
 
     // Drivetrain PID Gains
@@ -41,7 +41,7 @@ public final class Constants {
 
     // Intake
     public static final int intakeMotorPort = 7;
-    public static final double intakeMotorVoltage = -1;
+    public static final double intakeMotorVoltage = -7;
 
     // Indexer
     public static final int maxProximity = 0;
@@ -51,6 +51,7 @@ public final class Constants {
     public static final int FlywheelMotorPort = 9;
 
     public static final double FlywheelSpeed = 60;
+    public static final double tempFlywheelSpeed = 7;
     // PID Gains
     public static final double shooterKP = 0.01;
     public static final double shooterKI = 0.0;

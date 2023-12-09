@@ -75,6 +75,9 @@ public class ShooterSubsystem extends SubsystemBase {
         flywheelMotor.setVoltage(flywheelPID.calculate(flywheelMotor.getEncoder().getVelocity(),speed)
         +flywheelFeedForward.calculate(speed));
     }
+    public void tempSetFlywheelSpeed(Double voltage){
+        flywheelMotor.setVoltage(voltage);
+    }
 
     public void FlywheelOff() {
         flywheelMotor.setVoltage(0);
@@ -82,7 +85,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public CommandBase FlywheelOnCommand() {
         return runOnce(
                 () ->{
-                    SetFlywheelSpeed(Constants.FlywheelSpeed);
+                    tempSetFlywheelSpeed(Constants.tempFlywheelSpeed);
                 }
         );
     }

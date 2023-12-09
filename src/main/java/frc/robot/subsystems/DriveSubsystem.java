@@ -23,17 +23,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
+
 public class DriveSubsystem extends SubsystemBase {
+    //CANSparkMax motor1 = new CANSparkMax(Constants.lMotor1,MotorType.kBrushless);
+    //CANSparkMax motor2 = new CANSparkMax(Constants.lMotor2,MotorType.kBrushless);
+    //CANSparkMax motor3 = new CANSparkMax(Constants.lMotor3,MotorType.kBrushless);
+
     MotorControllerGroup lMotors = new MotorControllerGroup(
         new CANSparkMax(Constants.lMotor1, MotorType.kBrushless),
         new CANSparkMax(Constants.lMotor2, MotorType.kBrushless),
         new CANSparkMax(Constants.lMotor3, MotorType.kBrushless)
+//        motor1,
+//        motor2,
+//        motor3
     );
 
     MotorControllerGroup rMotors = new MotorControllerGroup(
         new CANSparkMax(Constants.rMotor1,MotorType.kBrushless),
         new CANSparkMax(Constants.rMotor2,MotorType.kBrushless),
         new CANSparkMax(Constants.rMotor3,MotorType.kBrushless)
+//        motor1,
+//        motor2,
+//        motor3
     );
     
 
@@ -76,7 +88,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DriveSubsystem() {
-        lMotors.setInverted(true);
+        //lMotors.setInverted(true);
 
         lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
         rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
@@ -142,5 +154,22 @@ public class DriveSubsystem extends SubsystemBase {
                 path, // FollowPathWithEvents also requires the path
                 this::getPose // FollowPathWithEvents also requires the robot pose supplier
         );
+    }
+    public Command driveForward(){
+        return runOnce(
+                () -> {
+                    arcadeDrive(1,0);
+                }
+        );
+    }
+    public Command stopDriving(){
+        return runOnce(
+                () -> {
+                    arcadeDrive(0,0);
+                }
+        );
+    }
+    public Command randomAuto(){
+        return driveForward().andThen(waitSeconds(2).andThen(stopDriving()));
     }
 }
