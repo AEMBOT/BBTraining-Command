@@ -32,10 +32,10 @@ public class ShooterSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("indexer proximity", indexerSensor.getProximity());
         if (!indexerOverride) {
-            if (indexerSensor.getProximity() <= Constants.maxProximity) {
+            if (indexerSensor.getProximity() >= Constants.maxProximity) {
                 conveyorMotor.setVoltage(0);
             } else {
-                conveyorMotor.setVoltage(2);
+                conveyorMotor.setVoltage(5);
             }
         }
 

@@ -44,7 +44,7 @@ public final class Constants {
     public static final double intakeMotorVoltage = -7;
 
     // Indexer
-    public static final int maxProximity = 0;
+    public static final int maxProximity = 100;
     public static final int conveyorPort = 8;
 
     // Flywheel
