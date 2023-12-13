@@ -156,17 +156,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     public Command driveForward() {
         return run(
-                () -> {
-                    arcadeDrive(1, 0);
-                }
+                () -> arcadeDrive(1, 0)
         );
     }
 
     public Command stopDriving() {
         return runOnce(
-                () -> {
-                    arcadeDrive(0, 0);
-                }
+                () -> arcadeDrive(0, 0)
         );
     }
 
