@@ -24,6 +24,7 @@ public class RobotContainer {
     SlewRateLimiter filtery = new SlewRateLimiter(slewRate);
 
     private final CommandXboxController controller1 = new CommandXboxController(xBoxControllerPort1);
+    private final CommandXboxController controller2 = new CommandXboxController(xBoxControllerPort2);
     private final PathPlannerPath pathTrajectory = PathPlannerPath.fromPathFile("Start Path");
 
     public RobotContainer() {
@@ -39,16 +40,16 @@ public class RobotContainer {
                 )
         );
 
-        controller1.rightBumper().whileTrue(intake.enableIntake());
+        controller2.rightBumper().whileTrue(intake.enableIntake());
 
-        controller1.b().whileTrue(intake.reverseIntake());
+        controller2.b().whileTrue(intake.reverseIntake());
 
-        controller1.y().whileTrue(shooter.RunIndexerCommand()); // Possibly temporary binding
-        controller1.a().whileTrue(shooter.ReverseIndexerCommand()); // Possibly temporary binding
+        controller2.y().whileTrue(shooter.RunIndexerCommand()); // Possibly temporary binding
+        controller2.a().whileTrue(shooter.ReverseIndexerCommand()); // Possibly temporary binding
 
-        controller1.leftBumper().onTrue(shooter.ShootCommand());
-        controller1.leftBumper().onFalse(shooter.ShooterOffCommand());
-        controller1.x().onTrue(drive.randomAuto());
+        controller2.leftBumper().onTrue(shooter.ShootCommand());
+        controller2.leftBumper().onFalse(shooter.ShooterOffCommand());
+        controller2.x().onTrue(drive.randomAuto());
     }
 
     private void configureBindings() {
