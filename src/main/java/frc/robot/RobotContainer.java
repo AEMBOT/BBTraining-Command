@@ -48,11 +48,11 @@ public class RobotContainer {
 
         controller2.b().whileTrue(intake.reverseIntake());
 
-        controller1.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
-        controller1.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
+        controller2.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
+        controller2.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
 
-        controller1.leftBumper().onTrue(shooter.shootCommand());
-        controller1.leftBumper().onFalse(shooter.shooterOffCommand());
+        controller2.leftBumper().onTrue(shooter.shootCommand());
+        controller2.leftBumper().onFalse(shooter.shooterOffCommand());
         controller1.x().onTrue(drive.randomAuto());
     }
 

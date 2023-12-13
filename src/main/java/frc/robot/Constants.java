@@ -42,7 +42,7 @@ public final class Constants {
 
     // Intake
     public static final int intakeMotorPort = 7;
-    public static final double intakeMotorVoltage = -7;
+    public static final double intakeMotorVoltage = -4;
 
     // Indexer
     public static final int maxProximity = 100;
