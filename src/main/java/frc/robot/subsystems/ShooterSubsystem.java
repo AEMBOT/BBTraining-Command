@@ -86,9 +86,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public CommandBase shooterOffCommand() {
         return runOnce(
-                () -> {
-                    flywheelOff();
-                }
+                this::flywheelOff
         );
     }
 

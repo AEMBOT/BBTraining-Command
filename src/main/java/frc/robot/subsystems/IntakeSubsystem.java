@@ -22,10 +22,10 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command enableIntake() {
-        return this.startEnd(() -> intakeOn(), () -> intakeOff());
+        return this.startEnd(this::intakeOn, this::intakeOff);
     }
 
     public Command reverseIntake() {
-        return this.startEnd(() -> intakeReverse(), () -> intakeOff());
+        return this.startEnd(this::intakeReverse, this::intakeOff);
     }
 }
