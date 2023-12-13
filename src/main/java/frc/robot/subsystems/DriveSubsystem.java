@@ -109,7 +109,7 @@ public class DriveSubsystem extends SubsystemBase {
         motor5.burnFlash();
         motor6.burnFlash();
 
-        //lMotors.setInverted(true);
+        lMotors.setInverted(true);
 
         lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
         rEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);

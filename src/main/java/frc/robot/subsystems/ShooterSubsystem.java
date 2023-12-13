@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -93,6 +94,10 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public CommandBase shootCommand() {
-        return flywheelOnCommand().andThen(waitSeconds(1).andThen(indexerOnCommand().andThen(waitSeconds(1).andThen(shooterOffCommand()))));
+        return flywheelOnCommand()
+                .andThen(waitSeconds(1))
+                .andThen(indexerOnCommand())
+                .andThen(waitSeconds(1))
+                .andThen(shooterOffCommand());
     }
 }
