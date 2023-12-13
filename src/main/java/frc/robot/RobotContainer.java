@@ -40,6 +40,10 @@ public class RobotContainer {
                 )
         );
 
+        shooter.setDefaultCommand(
+               shooter.defaultCommand()
+        );
+
         controller2.rightBumper().whileTrue(intake.enableIntake());
 
         controller2.b().whileTrue(intake.reverseIntake());

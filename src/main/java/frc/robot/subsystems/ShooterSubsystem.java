@@ -7,6 +7,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,8 +20,6 @@ public class ShooterSubsystem extends SubsystemBase {
     CANSparkMax conveyorMotor = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
     CANSparkMax flywheelMotor = new CANSparkMax(Constants.FlywheelMotorPort, MotorType.kBrushless);
 
-    Boolean indexerOverride = false;
-
     PIDController flywheelPID = new PIDController(Constants.shooterKP, Constants.shooterKI, Constants.shooterKD);
     SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV, Constants.shooterKA);
 
@@ -31,46 +30,33 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("indexer proximity", indexerSensor.getProximity());
-        if (!indexerOverride) {
+    }
+
+    public Command defaultCommand() {
+        return run(() -> {
             if (indexerSensor.getProximity() >= Constants.maxProximity) {
                 conveyorMotor.setVoltage(0);
             } else {
                 conveyorMotor.setVoltage(5);
             }
-        }
-
+        });
     }
 
-    public void indexerOverrideOn() {
-        indexerOverride = true;
-    }
-
-    public void indexerOverrideOff() {
-        indexerOverride = false;
-    }
 
     private void indexerOn() {
-        indexerOverrideOn();
-
         conveyorMotor.setVoltage(5);
     }
 
     private void indexerReverse() {
-        indexerOverrideOn();
-
         conveyorMotor.setVoltage(-5);
     }
 
-    public boolean getIndexerOverride() {
-        return indexerOverride;
-    }
-
     public CommandBase runIndexerCommand() {
-        return this.startEnd(this::indexerOn, this::indexerOverrideOff);
+        return this.run(this::indexerOn);
     }
 
     public CommandBase reverseIndexerCommand() {
-        return this.startEnd(this::indexerReverse, this::indexerOverrideOff);
+        return this.run(this::indexerReverse);
     }
 
     public void setFlywheelSpeed(Double speed) {
@@ -102,7 +88,6 @@ public class ShooterSubsystem extends SubsystemBase {
         return runOnce(
                 () -> {
                     flywheelOff();
-                    indexerOverrideOff();
                 }
         );
     }
