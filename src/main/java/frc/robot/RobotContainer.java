@@ -44,12 +44,12 @@ public class RobotContainer {
 
         controller2.b().whileTrue(intake.reverseIntake());
 
-        controller2.y().whileTrue(shooter.RunIndexerCommand()); // Possibly temporary binding
-        controller2.a().whileTrue(shooter.ReverseIndexerCommand()); // Possibly temporary binding
+        controller1.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
+        controller1.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
 
-        controller2.leftBumper().onTrue(shooter.ShootCommand());
-        controller2.leftBumper().onFalse(shooter.ShooterOffCommand());
-        controller2.x().onTrue(drive.randomAuto());
+        controller1.leftBumper().onTrue(shooter.shootCommand());
+        controller1.leftBumper().onFalse(shooter.shooterOffCommand());
+        controller1.x().onTrue(drive.randomAuto());
     }
 
     private void configureBindings() {

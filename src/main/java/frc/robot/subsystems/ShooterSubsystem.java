@@ -41,39 +41,39 @@ public class ShooterSubsystem extends SubsystemBase {
 
     }
 
-    public void IndexerOverrideOn() {
+    public void indexerOverrideOn() {
         indexerOverride = true;
     }
 
-    public void IndexerOverrideOff() {
+    public void indexerOverrideOff() {
         indexerOverride = false;
     }
 
-    private void IndexerOn() {
-        IndexerOverrideOn();
+    private void indexerOn() {
+        indexerOverrideOn();
 
         conveyorMotor.setVoltage(5);
     }
 
-    private void IndexerReverse() {
-        IndexerOverrideOn();
+    private void indexerReverse() {
+        indexerOverrideOn();
 
         conveyorMotor.setVoltage(-5);
     }
 
-    public boolean GetIndexerOverride() {
+    public boolean getIndexerOverride() {
         return indexerOverride;
     }
 
-    public CommandBase RunIndexerCommand() {
-        return this.startEnd(() -> IndexerOn(), () -> IndexerOverrideOff());
+    public CommandBase runIndexerCommand() {
+        return this.startEnd(this::indexerOn, this::indexerOverrideOff);
     }
 
-    public CommandBase ReverseIndexerCommand() {
-        return this.startEnd(() -> IndexerReverse(), () -> IndexerOverrideOff());
+    public CommandBase reverseIndexerCommand() {
+        return this.startEnd(this::indexerReverse, this::indexerOverrideOff);
     }
 
-    public void SetFlywheelSpeed(Double speed) {
+    public void setFlywheelSpeed(Double speed) {
         flywheelMotor.setVoltage(flywheelPID.calculate(flywheelMotor.getEncoder().getVelocity(), speed)
                 + flywheelFeedForward.calculate(speed));
     }
@@ -82,36 +82,32 @@ public class ShooterSubsystem extends SubsystemBase {
         flywheelMotor.setVoltage(voltage);
     }
 
-    public void FlywheelOff() {
+    public void flywheelOff() {
         flywheelMotor.setVoltage(0);
     }
 
-    public CommandBase FlywheelOnCommand() {
+    public CommandBase flywheelOnCommand() {
+        return runOnce(
+                () -> tempSetFlywheelSpeed(Constants.tempFlywheelSpeed)
+        );
+    }
+
+    public CommandBase indexerOnCommand() {
+        return runOnce(
+                this::indexerOn
+        );
+    }
+
+    public CommandBase shooterOffCommand() {
         return runOnce(
                 () -> {
-                    tempSetFlywheelSpeed(Constants.tempFlywheelSpeed);
+                    flywheelOff();
+                    indexerOverrideOff();
                 }
         );
     }
 
-    public CommandBase IndexerOnCommand() {
-        return runOnce(
-                () -> {
-                    IndexerOn();
-                }
-        );
-    }
-
-    public CommandBase ShooterOffCommand() {
-        return runOnce(
-                () -> {
-                    FlywheelOff();
-                    IndexerOverrideOff();
-                }
-        );
-    }
-
-    public CommandBase ShootCommand() {
-        return FlywheelOnCommand().andThen(waitSeconds(1).andThen(IndexerOnCommand().andThen(waitSeconds(1).andThen(ShooterOffCommand()))));
+    public CommandBase shootCommand() {
+        return flywheelOnCommand().andThen(waitSeconds(1).andThen(indexerOnCommand().andThen(waitSeconds(1).andThen(shooterOffCommand()))));
     }
 }
