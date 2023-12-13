@@ -61,5 +61,6 @@ public final class Constants {
     public static final double shooterKS = 0.01;
     public static final double shooterKV = 0.01;
     public static final double shooterKA = 0.01;
+    public static final double indexerVoltage = 3;
 
 }

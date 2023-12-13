@@ -39,18 +39,18 @@ public class ShooterSubsystem extends SubsystemBase {
             if (indexerSensor.getProximity() >= Constants.maxProximity) {
                 conveyorMotor.setVoltage(0);
             } else {
-                conveyorMotor.setVoltage(5);
+                conveyorMotor.setVoltage(Constants.indexerVoltage);
             }
         });
     }
 
 
     private void indexerOn() {
-        conveyorMotor.setVoltage(5);
+        conveyorMotor.setVoltage(Constants.indexerVoltage);
     }
 
     private void indexerReverse() {
-        conveyorMotor.setVoltage(-5);
+        conveyorMotor.setVoltage(-Constants.indexerVoltage);
     }
 
     public CommandBase runIndexerCommand() {
