@@ -23,6 +23,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import static edu.wpi.first.wpilibj.Timer.delay;
+import static java.lang.Thread.sleep;
+
 public class DriveSubsystem extends SubsystemBase {
     CANSparkMax motor1 = new CANSparkMax(Constants.lMotor1,MotorType.kBrushless);
     CANSparkMax motor2 = new CANSparkMax(Constants.lMotor2,MotorType.kBrushless);
@@ -83,6 +86,29 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DriveSubsystem() {
+        motor1.restoreFactoryDefaults();
+        motor2.restoreFactoryDefaults();
+        motor3.restoreFactoryDefaults();
+        motor4.restoreFactoryDefaults();
+        motor5.restoreFactoryDefaults();
+        motor6.restoreFactoryDefaults();
+
+        motor1.setInverted(false);
+        motor2.setInverted(false);
+        motor3.setInverted(false);
+        motor4.setInverted(false);
+        motor5.setInverted(false);
+        motor6.setInverted(false);
+
+        delay(1);
+
+        motor1.burnFlash();
+        motor2.burnFlash();
+        motor3.burnFlash();
+        motor4.burnFlash();
+        motor5.burnFlash();
+        motor6.burnFlash();
+
         //lMotors.setInverted(true);
 
         lEncoder.setDistancePerPulse(Constants.encoderDistancePerPulse);
