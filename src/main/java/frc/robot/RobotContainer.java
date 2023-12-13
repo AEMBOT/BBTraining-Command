@@ -53,14 +53,13 @@ public class RobotContainer {
 
         controller2.leftBumper().onTrue(shooter.shootCommand());
         controller2.leftBumper().onFalse(shooter.shooterOffCommand());
-        controller1.x().onTrue(drive.randomAuto());
     }
 
     private void configureBindings() {
     }
 
     public Command getAutonomousCommand() {
-        return drive.followPathCommand(pathTrajectory);
+        return drive.randomAuto();
     }
 
     public void onEnabled() {
