@@ -30,6 +30,8 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("indexer proximity", indexerSensor.getProximity());
+        SmartDashboard.putNumber("flywheel current draw", flywheelMotor.getOutputCurrent());
+        SmartDashboard.putNumber("conveyer current draw", conveyorMotor.getOutputCurrent());
     }
 
     public Command defaultCommand() {

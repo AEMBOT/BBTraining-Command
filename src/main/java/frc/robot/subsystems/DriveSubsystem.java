@@ -18,31 +18,29 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-    //CANSparkMax motor1 = new CANSparkMax(Constants.lMotor1,MotorType.kBrushless);
-    //CANSparkMax motor2 = new CANSparkMax(Constants.lMotor2,MotorType.kBrushless);
-    //CANSparkMax motor3 = new CANSparkMax(Constants.lMotor3,MotorType.kBrushless);
+    CANSparkMax motor1 = new CANSparkMax(Constants.lMotor1,MotorType.kBrushless);
+    CANSparkMax motor2 = new CANSparkMax(Constants.lMotor2,MotorType.kBrushless);
+    CANSparkMax motor3 = new CANSparkMax(Constants.lMotor3,MotorType.kBrushless);
 
     MotorControllerGroup lMotors = new MotorControllerGroup(
-            new CANSparkMax(Constants.lMotor1, MotorType.kBrushless),
-            new CANSparkMax(Constants.lMotor2, MotorType.kBrushless),
-            new CANSparkMax(Constants.lMotor3, MotorType.kBrushless)
-//        motor1,
-//        motor2,
-//        motor3
+        motor1,
+        motor2,
+        motor3
     );
 
+    CANSparkMax motor4 = new CANSparkMax(Constants.rMotor1,MotorType.kBrushless);
+    CANSparkMax motor5 = new CANSparkMax(Constants.rMotor2,MotorType.kBrushless);
+    CANSparkMax motor6 = new CANSparkMax(Constants.rMotor3,MotorType.kBrushless);
     MotorControllerGroup rMotors = new MotorControllerGroup(
-            new CANSparkMax(Constants.rMotor1, MotorType.kBrushless),
-            new CANSparkMax(Constants.rMotor2, MotorType.kBrushless),
-            new CANSparkMax(Constants.rMotor3, MotorType.kBrushless)
-//        motor1,
-//        motor2,
-//        motor3
+        motor4,
+        motor5,
+        motor6
     );
 
 
@@ -101,7 +99,12 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(gyro.getRotation2d(), lEncoder.getDistance(), rEncoder.getDistance());
-
+        SmartDashboard.putNumber("left motors drive current",
+                motor1.getOutputCurrent() + motor2.getOutputCurrent() + motor3.getOutputCurrent()
+        );
+        SmartDashboard.putNumber("right motors drive current",
+                motor4.getOutputCurrent() + motor5.getOutputCurrent() + motor6.getOutputCurrent()
+        );
     }
 
     public void arcadeDrive(double speed, double rotSpeed) {
