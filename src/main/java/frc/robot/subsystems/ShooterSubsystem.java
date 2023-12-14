@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
+import static edu.wpi.first.wpilibj2.command.Commands.waitUntil;
 
 public class ShooterSubsystem extends SubsystemBase {
     ColorSensorV3 indexerSensor = new ColorSensorV3(I2C.Port.kMXP);
@@ -32,7 +33,14 @@ public class ShooterSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("indexer proximity", indexerSensor.getProximity());
         SmartDashboard.putNumber("flywheel current draw", flywheelMotor.getOutputCurrent());
-        SmartDashboard.putNumber("conveyer current draw", conveyorMotor.getOutputCurrent());
+        SmartDashboard.putNumber("conveyor current draw", conveyorMotor.getOutputCurrent());
+        SmartDashboard.putNumber("flywheel current velocity", flywheelMotor.getEncoder().getVelocity());
+
+        if(indexerSensor.getProximity()>=Constants.maxProximity) {
+            flywheelMotor.setVoltage(Constants.flywheelIdleVoltage);
+        } else {
+            flywheelMotor.setVoltage(0);
+        }
     }
 
     public Command defaultCommand() {
@@ -99,5 +107,5 @@ public class ShooterSubsystem extends SubsystemBase {
                 .andThen(indexerOnCommand())
                 .andThen(waitSeconds(1))
                 .andThen(shooterOffCommand());
-    }
+    }   // waitUntil(flywheelMotor.getEncoder().getVelocity()>=)
 }
