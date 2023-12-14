@@ -67,6 +67,10 @@ public class ShooterSubsystem extends SubsystemBase {
         conveyorMotor.setVoltage(Constants.indexerVoltage);
     }
 
+    private void indexerOff() {
+        conveyorMotor.setVoltage(0);
+    }
+
     private void indexerReverse() {
         conveyorMotor.setVoltage(-Constants.indexerVoltage);
     }
@@ -92,6 +96,10 @@ public class ShooterSubsystem extends SubsystemBase {
         flywheelMotor.setVoltage(0);
     }
 
+    public void flywheelBackwards() {
+        flywheelMotor.setVoltage(-1);
+    }
+
     public CommandBase flywheelOnCommand() {
         return runOnce(
                 () -> tempSetFlywheelSpeed(Constants.tempFlywheelSpeed)
@@ -104,9 +112,21 @@ public class ShooterSubsystem extends SubsystemBase {
         );
     }
 
+    public Command indexerOffCommand() {
+        return runOnce(
+                this::indexerOff
+        );
+    }
+
     public CommandBase shooterOffCommand() {
         return runOnce(
                 this::flywheelOff
+        );
+    }
+
+    public Command shootBackwardsCommand() {
+        return run(
+                this::flywheelBackwards
         );
     }
 
@@ -114,6 +134,8 @@ public class ShooterSubsystem extends SubsystemBase {
         return flywheelOnCommand()
                 .andThen(waitUntil(()->flywheelMotor.getEncoder().getVelocity()>=3000))
                 .andThen(indexerOnCommand())
-                .andThen(waitSeconds(0.15));
+                .andThen(waitSeconds(0.10))
+                .andThen(indexerOffCommand())
+                .andThen(waitSeconds(0.20));
     }
 }
