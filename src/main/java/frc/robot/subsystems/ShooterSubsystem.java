@@ -103,9 +103,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public CommandBase shootCommand() {
         return flywheelOnCommand()
-                .andThen(waitSeconds(1))
+                .andThen(waitUntil(()->flywheelMotor.getEncoder().getVelocity()>=3000))
                 .andThen(indexerOnCommand())
-                .andThen(waitSeconds(1))
-                .andThen(shooterOffCommand());
-    }   // waitUntil(flywheelMotor.getEncoder().getVelocity()>=)
+                .andThen(waitSeconds(0.25));
+    }
 }
