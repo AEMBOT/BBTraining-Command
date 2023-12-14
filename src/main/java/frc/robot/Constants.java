@@ -55,7 +55,7 @@ public final class Constants {
 
     public static final double FlywheelSpeed = 60;
     public static final double tempFlywheelSpeed = 7;
-    public static final double flywheelIdleVoltage = 3;
+    public static final double flywheelIdleVoltage = 7;
     // PID Gains
     public static final double shooterKP = 0.01;
     public static final double shooterKI = 0.0;
