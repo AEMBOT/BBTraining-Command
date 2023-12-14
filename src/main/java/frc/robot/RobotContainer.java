@@ -44,9 +44,9 @@ public class RobotContainer {
                shooter.defaultCommand()
         );
 
-        controller2.rightBumper().whileTrue(intake.enableIntake());
+        controller1.rightBumper().whileTrue(intake.enableIntake());
 
-        controller2.b().whileTrue(intake.reverseIntake());
+        controller1.b().whileTrue(intake.reverseIntake());
 
         controller2.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
         controller2.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
