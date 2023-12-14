@@ -99,6 +99,12 @@ public class DriveSubsystem extends SubsystemBase {
         motor4.setInverted(false);
         motor5.setInverted(false);
         motor6.setInverted(false);
+        motor1.setSmartCurrentLimit(60);
+        motor2.setSmartCurrentLimit(60);
+        motor3.setSmartCurrentLimit(60);
+        motor4.setSmartCurrentLimit(60);
+        motor5.setSmartCurrentLimit(60);
+        motor6.setSmartCurrentLimit(60);
 
         delay(1);
 

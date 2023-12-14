@@ -10,7 +10,7 @@ public final class Constants {
     public static final int rMotor2 = 2; // Right Back
     public static final int rMotor3 = 3; // Right Front
 
-    public static final double slewRate = 3.5;
+    public static final double slewRate = 2;
 
     public static final double trackWidth = 1; // Distance between the left and right wheels in meters | PLACEHOLDER VALUE
     // Encoders

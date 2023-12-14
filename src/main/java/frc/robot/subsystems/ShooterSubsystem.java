@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import static edu.wpi.first.wpilibj.Timer.delay;
 import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
 import static edu.wpi.first.wpilibj2.command.Commands.waitUntil;
 
@@ -26,7 +27,15 @@ public class ShooterSubsystem extends SubsystemBase {
     SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.shooterKS, Constants.shooterKV, Constants.shooterKA);
 
     public ShooterSubsystem() {
+        flywheelMotor.restoreFactoryDefaults();
+        conveyorMotor.restoreFactoryDefaults();
+
         flywheelMotor.setInverted(true);
+
+        delay(1);
+
+        flywheelMotor.burnFlash();
+        conveyorMotor.burnFlash();
     }
 
     @Override
