@@ -44,23 +44,8 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("flywheel current draw", flywheelMotor.getOutputCurrent());
         SmartDashboard.putNumber("conveyor current draw", conveyorMotor.getOutputCurrent());
         SmartDashboard.putNumber("flywheel current velocity", flywheelMotor.getEncoder().getVelocity());
-
-        if(indexerSensor.getProximity()>=Constants.maxProximity) {
-            flywheelMotor.setVoltage(Constants.flywheelIdleVoltage);
-        } else {
-            flywheelMotor.setVoltage(0);
-        }
     }
 
-    public Command defaultCommand() {
-        return run(() -> {
-            if (indexerSensor.getProximity() >= Constants.maxProximity) {
-                conveyorMotor.setVoltage(0);
-            } else {
-                conveyorMotor.setVoltage(Constants.indexerVoltage);
-            }
-        });
-    }
 
 
     private void indexerOn() {
@@ -97,7 +82,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void flywheelBackwards() {
-        flywheelMotor.setVoltage(-1);
+        flywheelMotor.setVoltage(-3);
     }
 
     public CommandBase flywheelOnCommand() {
@@ -136,6 +121,7 @@ public class ShooterSubsystem extends SubsystemBase {
                 .andThen(indexerOnCommand())
                 .andThen(waitSeconds(0.10))
                 .andThen(indexerOffCommand())
-                .andThen(waitSeconds(0.20));
+                .andThen(waitSeconds(0.20))
+                .andThen(shooterOffCommand());
     }
 }

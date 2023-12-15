@@ -40,9 +40,6 @@ public class RobotContainer {
                 )
         );
 
-        shooter.setDefaultCommand(
-               shooter.defaultCommand()
-        );
 
         controller1.rightBumper().whileTrue(intake.enableIntake());
 
