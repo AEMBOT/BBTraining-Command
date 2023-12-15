@@ -50,6 +50,7 @@ public class RobotContainer {
 
         controller2.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
         controller2.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
+        controller1.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
 
         controller2.x().whileTrue(shooter.shootBackwardsCommand());
 
