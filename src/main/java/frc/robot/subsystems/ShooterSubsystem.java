@@ -61,7 +61,9 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public CommandBase runIndexerCommand() {
-        return this.run(this::indexerOn);
+        return this.run(this::indexerOn)
+                .withTimeout(0.25)
+                .andThen(indexerOffCommand());
     }
 
     public CommandBase reverseIndexerCommand() {

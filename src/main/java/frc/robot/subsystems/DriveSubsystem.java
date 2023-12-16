@@ -202,6 +202,6 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public Command randomAuto() {
-        return driveForward().withTimeout(0.5).andThen(stopDriving());
+        return driveForward().withTimeout(2).andThen(stopDriving());
     }
 }

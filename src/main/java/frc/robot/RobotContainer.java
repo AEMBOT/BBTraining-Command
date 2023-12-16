@@ -45,7 +45,7 @@ public class RobotContainer {
 
         controller1.b().whileTrue(intake.reverseIntake());
 
-        controller2.y().whileTrue(shooter.runIndexerCommand()); // Possibly temporary binding
+        controller2.y().onTrue(shooter.runIndexerCommand()); // Possibly temporary binding
         controller2.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
         controller1.a().whileTrue(shooter.reverseIndexerCommand()); // Possibly temporary binding
 
